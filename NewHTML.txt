@@ -1,0 +1,39 @@
+<p><!DOCTYPE html> <html lang=&quot;en&quot;> <head>  <meta charset=&quot;UTF-8&quot;>  <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>  <title>Typing Test</title>  <style>  body {  font-family: Calibri, Arial, sans-serif;  margin: 0;  padding: 0;  }</p>
+
+<p> .toolbar {  background-color: #f3f3f3;  padding: 10px;  display: flex;  justify-content: space-between;  border-bottom: 1px solid #ccc;  }</p>
+
+<p> .toolbar .title {  font-size: 18px;  font-weight: bold;  }</p>
+
+<p> .toolbar .actions button {  padding: 5px 10px;  border: none;  background-color: #0078d4;  color: white;  cursor: pointer;  border-radius: 4px;  }</p>
+
+<p> .toolbar .actions button:hover {  background-color: #005a9e;  }</p>
+
+<p> .container {  padding: 20px;  }</p>
+
+<p> .text-box {  border: 1px solid #ccc;  padding: 10px;  height: 150px;  overflow-y: auto;  background-color: #ffffff;  margin-bottom: 20px;  }</p>
+
+<p> .typing-area {  width: 100%;  padding: 10px;  font-size: 16px;  border: 1px solid #ccc;  border-radius: 4px;  }</p>
+
+<p> .results {  margin-top: 20px;  font-size: 16px;  }</p>
+
+<p> .results span {  font-weight: bold;  }  </style> </head> <body>  <div class=&quot;toolbar&quot;>  <div class=&quot;title&quot;>Typing Test - Microsoft Style</div>  <div class=&quot;actions&quot;>  <button onclick=&quot;startTest()&quot;>Start Test</button>  <button onclick=&quot;resetTest()&quot;>Reset</button>  </div>  </div></p>
+
+<p> <div class=&quot;container&quot;>  <div class=&quot;text-box&quot; id=&quot;test-text&quot;>  The quick brown fox jumps over the lazy dog. Practice your typing skills and improve your accuracy and speed with this typing test. Good luck!  </div>  <textarea  class=&quot;typing-area&quot;  id=&quot;typing-area&quot;  placeholder=&quot;Type the text here...&quot;  disabled  ></textarea>  <div class=&quot;results&quot;>  Time: <span id=&quot;timer&quot;>60</span>s | Words Per Minute: <span id=&quot;wpm&quot;>0</span> | Accuracy: <span id=&quot;accuracy&quot;>100</span>%  </div>  </div></p>
+
+<p> <script>  let timer = 60;  let interval;  let isTestStarted = false;</p>
+
+<p> function startTest() {  if (isTestStarted) return;  isTestStarted = true;</p>
+
+<p> document.getElementById(&quot;typing-area&quot;).disabled = false;  document.getElementById(&quot;typing-area&quot;).focus();  interval = setInterval(() => {  timer--;  document.getElementById(&quot;timer&quot;).innerText = timer;  if (timer <= 0) {  clearInterval(interval);  endTest();  }  }, 1000);  }</p>
+
+<p> function resetTest() {  clearInterval(interval);  timer = 60;  isTestStarted = false;  document.getElementById(&quot;timer&quot;).innerText = timer;  document.getElementById(&quot;wpm&quot;).innerText = 0;  document.getElementById(&quot;accuracy&quot;).innerText = 100;  document.getElementById(&quot;typing-area&quot;).value = &quot;&quot;;  document.getElementById(&quot;typing-area&quot;).disabled = true;  }</p>
+
+<p> function endTest() {  const typedText = document.getElementById(&quot;typing-area&quot;).value.trim();  const originalText = document.getElementById(&quot;test-text&quot;).innerText.trim();  const typedWords = typedText.split(&quot; &quot;).length;  const originalWords = originalText.split(&quot; &quot;).length;</p>
+
+<p> // Calculate WPM  const wpm = Math.round((typedWords / (60 - timer)) * 60);  document.getElementById(&quot;wpm&quot;).innerText = isNaN(wpm) ? 0 : wpm;</p>
+
+<p> // Calculate Accuracy  const typedChars = typedText.split(&quot;&quot;);  const originalChars = originalText.split(&quot;&quot;);  let correctChars = 0;</p>
+
+<p> for (let i = 0; i < typedChars.length; i++) {  if (typedChars[i] === originalChars[i]) correctChars++;  }</p>
+
+<p> const accuracy = Math.round((correctChars / originalChars.length) * 100);  document.getElementById(&quot;accuracy&quot;).innerText = isNaN(accuracy) ? 0 : accuracy;  }  </script> </body> </html></p>
